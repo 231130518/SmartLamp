@@ -1,231 +1,289 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Kontrol Lampu Rumah</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Kontrol Lampu Rumah</title>
 
-<style>
-  body{
-    background:#e9eef3;
-    font-family: Arial;
-    padding:20px;
-  }
+    <style>
+      body {
+        background: #e9eef3;
+        font-family: Arial;
+        padding: 20px;
+      }
 
-  h2{
-    text-align:center;
-    margin-bottom:10px;
-  }
+      h2 {
+        text-align: center;
+        margin-bottom: 10px;
+      }
 
-  .panel{
-    max-width:420px;
-    margin:0 auto;
-  }
+      .panel {
+        max-width: 420px;
+        margin: 0 auto;
+      }
 
-  .row{
-    background:#ffffff;
-    padding:14px 18px;
-    margin-top:12px;
-    border-radius:16px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    box-shadow:0 10px 25px rgba(0,0,0,.07);
-  }
+      .row {
+        background: #ffffff;
+        padding: 14px 18px;
+        margin-top: 12px;
+        border-radius: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+      }
 
-  .label{
-    font-size:17px;
-  }
+      .label {
+        font-size: 17px;
+      }
 
-  .real-switch{
-    position:relative;
-    width:70px;
-    height:36px;
-  }
+      .real-switch {
+        position: relative;
+        width: 70px;
+        height: 36px;
+      }
 
-  .real-switch input{
-    display:none;
-  }
+      .real-switch input {
+        display: none;
+      }
 
-  .track{
-    position:absolute;
-    inset:0;
-    border-radius:40px;
-    background:#f1f1f1;
-    box-shadow: inset 3px 3px 6px rgba(0,0,0,.25),
-                inset -3px -3px 6px rgba(255,255,255,.9);
-    transition:.25s;
-  }
+      .track {
+        position: absolute;
+        inset: 0;
+        border-radius: 40px;
+        background: #f1f1f1;
+        box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.25),
+          inset -3px -3px 6px rgba(255, 255, 255, 0.9);
+        transition: 0.25s;
+      }
 
-  .knob{
-    position:absolute;
-    top:4px;
-    left:4px;
-    width:28px;
-    height:28px;
-    border-radius:50%;
-    background:white;
-    box-shadow:0 4px 10px rgba(0,0,0,.35);
-    transition:.25s;
-  }
+      .knob {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: white;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+        transition: 0.25s;
+      }
 
-  input:checked + .track{
-    background:#6be77b;
-  }
+      input:checked + .track {
+        background: #6be77b;
+      }
 
-  input:checked ~ .knob{
-    transform:translateX(34px);
-  }
+      input:checked ~ .knob {
+        transform: translateX(34px);
+      }
 
-  .lamp-icon{
-    font-size:20px;
-    margin-left:8px;
-    opacity:.4;
-    transition:.25s;
-  }
+      .lamp-icon {
+        font-size: 20px;
+        margin-left: 8px;
+        opacity: 0.4;
+        transition: 0.25s;
+      }
 
-  .on{
-    color:#facc15;
-    opacity:1;
-    text-shadow:0 0 6px #ffd84d;
-  }
-</style>
-</head>
+      .on {
+        color: #facc15;
+        opacity: 1;
+        text-shadow: 0 0 6px #ffd84d;
+      }
 
-<body>
+      /* ================= RESPONSIVE ================= */
 
-<h2>Kontrol Lampu Rumah</h2>
+      /* layar kecil HP */
+      @media (max-width: 480px) {
+        body {
+          padding: 12px;
+        }
 
-<div class="panel">
+        .panel {
+          max-width: 100%;
+        }
 
-  <!-- =================== LAMPU SAKLAR =================== -->
+        .row {
+          padding: 12px 14px;
+          gap: 10px;
+        }
 
-  <div class="row">
-    <div class="label">Lantai 1</div>
-    <div style="display:flex;align-items:center;">
-      <span id="icon_l1" class="lamp-icon">💡</span>
-      <label class="real-switch">
-        <input type="checkbox" id="lantai1" onclick="toggle('lantai1', this.checked)">
-        <div class="track"></div>
-        <div class="knob"></div>
-      </label>
+        .label {
+          font-size: 15px;
+        }
+
+        h2 {
+          font-size: 18px;
+        }
+
+        .real-switch {
+          transform: scale(0.9);
+        }
+
+        .lamp-icon {
+          font-size: 18px;
+        }
+      }
+
+      /* tablet kecil */
+      @media (max-width: 768px) {
+        .panel {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Kontrol Lampu Rumah</h2>
+
+    <div class="panel">
+      <!-- =================== LAMPU SAKLAR =================== -->
+
+      <div class="row">
+        <div class="label">Lantai 1</div>
+        <div style="display: flex; align-items: center">
+          <span id="icon_l1" class="lamp-icon">💡</span>
+          <label class="real-switch">
+            <input
+              type="checkbox"
+              id="lantai1"
+              onclick="toggle('lantai1', this.checked)"
+            />
+            <div class="track"></div>
+            <div class="knob"></div>
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="label">Lantai 2</div>
+        <div style="display: flex; align-items: center">
+          <span id="icon_l2" class="lamp-icon">💡</span>
+          <label class="real-switch">
+            <input
+              type="checkbox"
+              id="lantai2"
+              onclick="toggle('lantai2', this.checked)"
+            />
+            <div class="track"></div>
+            <div class="knob"></div>
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="label">Lampu Rooftop</div>
+        <div style="display: flex; align-items: center">
+          <span id="icon_atap" class="lamp-icon">💡</span>
+          <label class="real-switch">
+            <input
+              type="checkbox"
+              id="balkon"
+              onclick="toggle('balkon', this.checked)"
+            />
+            <div class="track"></div>
+            <div class="knob"></div>
+          </label>
+        </div>
+      </div>
+
+      <!-- =================== PIR =================== -->
+      <div
+        class="row"
+        style="
+          flex-direction: column;
+          align-items: flex-start;
+          min-height: 95px;
+        "
+      >
+        <div style="font-size: 19px; font-weight: bold">👣 PIR Sensor</div>
+        <div id="pir_status" style="margin-top: 6px; font-size: 17px">
+          Status: -
+        </div>
+      </div>
+
+      <!-- =================== ULTRASONIC =================== -->
+      <div
+        class="row"
+        style="
+          flex-direction: column;
+          align-items: flex-start;
+          min-height: 95px;
+        "
+      >
+        <div style="font-size: 19px; font-weight: bold">
+          📏 Ultrasonic Sensor
+        </div>
+        <div id="ultra_value" style="margin-top: 6px; font-size: 17px">
+          Jarak: -
+        </div>
+        <div id="bright_value" style="margin-top: 6px; font-size: 17px">
+          Brightness: -
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="label">Lantai 2</div>
-    <div style="display:flex;align-items:center;">
-      <span id="icon_l2" class="lamp-icon">💡</span>
-      <label class="real-switch">
-        <input type="checkbox" id="lantai2" onclick="toggle('lantai2', this.checked)">
-        <div class="track"></div>
-        <div class="knob"></div>
-      </label>
-    </div>
-  </div>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
-  <div class="row">
-    <div class="label">Lampu Rooftop</div>
-    <div style="display:flex;align-items:center;">
-      <span id="icon_atap" class="lamp-icon">💡</span>
-      <label class="real-switch">
-        <input type="checkbox" id="balkon" onclick="toggle('balkon', this.checked)">
-        <div class="track"></div>
-        <div class="knob"></div>
-      </label>
-    </div>
-  </div>
+    <script>
+      // ====== SAMA DENGAN KODE ESP32 ======
+      const firebaseConfig = {
+        apiKey: "AIzaSyALglseDWfP1OTTue13-jmrYV5xQ5LwO90",
+        databaseURL:
+          "https://internet-of-things-3e552-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "internet-of-things-3e552",
+      };
 
-  <!-- =================== PIR =================== -->
-  <div class="row" style="flex-direction:column; align-items:flex-start; min-height:95px;">
-    <div style="font-size:19px; font-weight:bold;">
-      👣 PIR Sensor
-    </div>
-    <div id="pir_status" style="margin-top:6px; font-size:17px;">
-      Status: -
-    </div>
-  </div>
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.database();
 
-  <!-- =================== ULTRASONIC =================== -->
-  <div class="row" style="flex-direction:column; align-items:flex-start; min-height:95px;">
-    <div style="font-size:19px; font-weight:bold;">
-      📏 Ultrasonic Sensor
-    </div>
-    <div id="ultra_value" style="margin-top:6px; font-size:17px;">
-      Jarak: -
-    </div>
-    <div id="bright_value" style="margin-top:6px; font-size:17px;">
-      Brightness: -
-    </div>
-  </div>
+      // ====== TOMBOL KONTROL ======
+      function toggle(node, state) {
+        db.ref("kontrol/" + node).set(state ? 1 : 0);
+      }
 
-</div>
+      function setIcon(el, val) {
+        if (val == 1) el.classList.add("on");
+        else el.classList.remove("on");
+      }
 
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+      // ====== REALTIME KONTROL ======
+      db.ref("kontrol/lantai1").on("value", (s) => {
+        let v = s.val();
+        lantai1.checked = v == 1;
+        setIcon(icon_l1, v);
+      });
 
-<script>
+      db.ref("kontrol/lantai2").on("value", (s) => {
+        let v = s.val();
+        lantai2.checked = v == 1;
+        setIcon(icon_l2, v);
+      });
 
-// ====== SAMA DENGAN KODE ESP32 ======
-const firebaseConfig = {
-  apiKey: "AIzaSyALglseDWfP1OTTue13-jmrYV5xQ5LwO90",
-  databaseURL: "https://internet-of-things-3e552-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "internet-of-things-3e552"
-};
+      db.ref("kontrol/balkon").on("value", (s) => {
+        let v = s.val();
+        balkon.checked = v == 1;
+        setIcon(icon_atap, v);
+      });
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+      // ====== SENSOR PIR ======
+      db.ref("sensor/pir").on("value", (s) => {
+        let v = s.val();
+        if (v == 1) pir_status.innerHTML = "Status: TERDETEKSI GERAK 🚶‍♂️";
+        else pir_status.innerHTML = "Status: TIDAK ADA GERAK 😴";
+      });
 
-// ====== TOMBOL KONTROL ======
-function toggle(node, state){
-  db.ref("kontrol/" + node).set(state ? 1 : 0);
-}
+      // ====== ULTRASONIC ======
+      db.ref("sensor/ultrasonic/distance_cm").on("value", (s) => {
+        let v = s.val();
+        ultra_value.innerHTML = "Jarak: " + v + " cm 📡";
+      });
 
-function setIcon(el, val){
-  if(val==1) el.classList.add("on");
-  else el.classList.remove("on");
-}
-
-// ====== REALTIME KONTROL ======
-db.ref("kontrol/lantai1").on("value", s=>{
-  let v = s.val();
-  lantai1.checked = v==1;
-  setIcon(icon_l1, v);
-});
-
-db.ref("kontrol/lantai2").on("value", s=>{
-  let v = s.val();
-  lantai2.checked = v==1;
-  setIcon(icon_l2, v);
-});
-
-db.ref("kontrol/balkon").on("value", s=>{
-  let v = s.val();
-  balkon.checked = v==1;
-  setIcon(icon_atap, v);
-});
-
-// ====== SENSOR PIR ======
-db.ref("pir").on("value", s=>{
-  let v = s.val();
-  if(v==1)
-    pir_status.innerHTML = "Status: TERDETEKSI GERAK 🚶‍♂️";
-  else
-    pir_status.innerHTML = "Status: TIDAK ADA GERAK 😴";
-});
-
-// ====== ULTRASONIC ======
-db.ref("distance_cm").on("value", s=>{
-  let v = s.val();
-  ultra_value.innerHTML = "Jarak: " + v + " cm 📡";
-});
-
-// ====== BRIGHTNESS ======
-db.ref("brightness").on("value", s=>{
-  let v = s.val();
-  bright_value.innerHTML = "Brightness: " + v;
-});
-
-</script>
-
-</body>
+      // ====== BRIGHTNESS ======
+      db.ref("sensor/ultrasonic/brightness").on("value", (s) => {
+        let v = s.val();
+        bright_value.innerHTML = "Brightness: " + v;
+      });
+    </script>
+  </body>
 </html>
